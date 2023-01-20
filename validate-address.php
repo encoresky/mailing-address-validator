@@ -8,27 +8,30 @@ $city = $_REQUEST['city'];
 $state = $_REQUEST['state'];
 $zipcode = $_REQUEST['zipcode'];
 
-$url = "https://us-street.api.smartystreets.com/street-address?auth-id=ed764521-d73f-41dd-e8a6-ff74159fbc2e&auth-token=bZoXjPoBFY2FOlA8ChIt&license=us-core-cloud";
+$url = USPS_BASE_URL . "" . USPS_API . "?auth-id=" . USPS_AUTH_ID . "&auth-token=" . USPS_AUTH_TOKEN . "&license=" . USPS_LICENSE . "&candidates=" . USPS_CANDIDATES . "&match=" . USPS_MATCH;
 
-$query_string = "&candidates=10&match=enhanced&street=" . $street . "&street2=" . $street2 . "&city=" . $city . "&state=" . $state . "&zipcode=" . $zipcode;
+$query_string = "&street=" . urlencode($street) . "&street2=" . urlencode($street2) . "&city=" . urlencode($city) . "&state=" . urlencode($state) . "&zipcode=" . urlencode($zipcode);
+
+$apiurl = $url . "" . $query_string;
 
 $curl = curl_init();
-
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://us-street.api.smartystreets.com/street-address?auth-id=ed764521-d73f-41dd-e8a6-ff74159fbc2e&auth-token=bZoXjPoBFY2FOlA8ChIt&license=us-core-cloud&candidates=10&match=enhanced&street=222%20W%20Merchandise%20Mart%20plaza&street2=suite%201212&city=Chicago&state=IL&zipcode=60654',
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'GET',
-  CURLOPT_HTTPHEADER => array(
-    'content-type: application/json'
-  ),
+    // CURLOPT_URL => $urls,
+    CURLOPT_URL => $apiurl,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => array(
+        'content-type: application/json'
+    ),
 ));
 
 $response = curl_exec($curl);
+
 if (curl_errno($curl)) {
     $error_msg = curl_error($curl);
     $result = [
