@@ -1,11 +1,6 @@
 # mailing-address-validator
 Validate/Standardize addresses using USPS
 
-# Getting the sources
-First clone the repository:
-
-
-
 Installation on Local Computer
 ------------------------------
 
