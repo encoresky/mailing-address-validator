@@ -14,7 +14,7 @@ Installation on Local Computer
 3. Git Clone source code 
 
 ```bash  
-git clone git@bitbucket.org:encoresky/pahp-reporting-backend.git
+git clone https://github.com/encoresky/mailing-address-validator.git
 ```
 
 4. Configure the database connection by editing the db.php
